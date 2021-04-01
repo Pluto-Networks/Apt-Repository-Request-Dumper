@@ -1,0 +1,9 @@
+Origin: Pluto
+Label: Pluto
+Suite: stable
+Version: 1.0
+Codename: udid
+Architectures: iphoneos-arm
+Components: main
+Description: Pluto-Repo is an online DRM Provider and an awesome developer and customer friendly package Repository, Payments coming soon !
+

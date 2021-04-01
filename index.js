@@ -11,7 +11,14 @@ app.use(morgan("combined"));
 app.use(cors());
 
 app.get("/", (req, res) => res.send("Hello World!"));
-
+app.get("/./Release", async (req, res) => {
+  const file = await fsHelper.readFile("./Release");
+  res.send(file);
+});
+app.get("/Release", async (req, res) => {
+  const file = await fsHelper.readFile("./Release");
+  res.send(file);
+});
 app.get("/Packages", async (req, res) => {
   const file = await fsHelper.readFile("./Packages");
   res.send(file);
