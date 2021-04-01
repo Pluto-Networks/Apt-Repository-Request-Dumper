@@ -46,19 +46,30 @@ app.get("/./Packages.xz", async (req, res) => {
 
 app.get("/debians/:debName", async (req, res) => {
   console.log(req);
-  if (req.params.debName) {
-    try {
-      const { debName } = req.params;
-      const pt = path.join("./debians", debName);
-      const file = await fsHelper.readFile(pt).catch(() => res.sendStatus(404));
-      res.setHeader("Content-Type", "application/x-deb");
-      res.send(file);
-    } catch (error) {
-      console.log(error);
-      res.sendStatus(500);
-    }
+
+  // FORMAL HEADERs BLOCK
+  // if (req.headers["your-header-name"] === "control value")
+
+  // example to block postman
+  if (req.headers["user-agent"] === "PostmanRuntime/7.26.10") {
+    res.send("NOT ALLOWED");
   } else {
-    res.sendStatus(400);
+    if (req.params.debName) {
+      try {
+        const { debName } = req.params;
+        const pt = path.join("./debians", debName);
+        const file = await fsHelper
+          .readFile(pt)
+          .catch(() => res.sendStatus(404));
+        res.setHeader("Content-Type", "application/x-deb");
+        res.send(file);
+      } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+      }
+    } else {
+      res.sendStatus(400);
+    }
   }
 });
 
